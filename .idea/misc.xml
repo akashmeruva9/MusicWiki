@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/drawable-v24/bankinfo_edittext.xml" value="0.142" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/drawable-v24/selector.xml" value="0.2555" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/drawable/ic_baseline_keyboard_backspace_24.xml" value="0.142" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/layout/activity_album_info.xml" value="0.2" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/layout/activity_artist_info.xml" value="0.2359375" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/layout/activity_genre.xml" value="0.25" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/layout/activity_genre_info.xml" value="0.152" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/layout/activity_splash.xml" value="0.25" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/layout/album_item.xml" value="0.24895833333333334" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/layout/artist_item.xml" value="0.25" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/layout/fragment_albums_.xml" value="0.25" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/layout/fragment_artists_.xml" value="0.25" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/layout/fragment_tracks_.xml" value="0.25" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/layout/genre_info.xml" value="0.24895833333333334" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/layout/genre_item.xml" value="0.25" />
+        <entry key="..\:/projects/Android/MusicWiki/app/src/main/res/layout/tracks_item.xml" value="0.24895833333333334" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

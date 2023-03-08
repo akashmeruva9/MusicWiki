@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".GenreInfo.albums.album_info.Album_info_Activity">
+
+    <Button
+        android:id="@+id/album_info_back_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/ic_baseline_keyboard_backspace_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="10dp"
+        />
+
+    <ImageView
+        android:id="@+id/album_info_bcg_img"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:foreground="#96000000"
+        android:foregroundTintMode="src_atop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/album_info_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text="Name"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"
+        app:fontFamily="@font/carrois_gothic"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/album_artist_info_item_artist"
+        />
+
+
+    <TextView
+        android:id="@+id/album_artist_info_item_artist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:text="Artist"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/album_info_item_name"
+        app:layout_constraintBottom_toTopOf="@id/album_info_recycler_view_scrollview"/>
+
+    <HorizontalScrollView
+        android:id="@+id/album_info_recycler_view_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:scrollbars="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/album_info_bcg_img"
+        android:layout_marginTop="10dp"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/album_info_recycler_view"
+            android:layout_width="wrap_content"
+            android:scrollbars="horizontal"
+            android:layout_height="40dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@color/white"
+            tools:listitem="@layout/genre_item"
+            />
+    </HorizontalScrollView>
+
+
+    <TextView
+        android:id="@+id/album_info_tv2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/album_info_recycler_view_scrollview"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Description"
+        android:textColor="#757575"
+        android:textSize="15sp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
