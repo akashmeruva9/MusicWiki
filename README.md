@@ -4,6 +4,10 @@
 This app is a music app, in which we can know the differnt albums, tracks and genres of music at one place.
 It shows the top albums, top tracks, top genres according to the selection.
 
+In the process of making this app, i've learned and implemented many this like, recycler views, view pagers, fragments, tab layout, recyclerview adapter, 
+horizontal recycler view, json object request, getting data from API and many more.
+
+
 <table style="border: 1px solid black;">
             <tr>
                 <td  style="border: 1px solid black ;">
