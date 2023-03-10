@@ -13,7 +13,6 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -35,6 +34,12 @@ android {
         jvmTarget = '1.8'
     }
 }
+
+configurations {
+    cleanedAnnotations
+    implementation.exclude group: 'org.jetbrains' , module:'annotations'
+}
+
 
 dependencies {
 
@@ -63,12 +68,8 @@ dependencies {
 
     //Room & Rx Java Support
     implementation 'androidx.room:room-runtime:2.5.0'
-    implementation 'androidx.room:room-compiler:2.5.0'
     implementation 'androidx.room:room-rxjava2:2.5.0'
 
-    //kotlin Co-routines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:2.6.0-alpha06"
