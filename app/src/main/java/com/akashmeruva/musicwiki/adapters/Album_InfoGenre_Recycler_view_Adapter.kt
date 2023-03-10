@@ -1,14 +1,13 @@
-package com.akashmeruva.musicwiki.GenreInfo.albums.album_info
+package com.akashmeruva.musicwiki.ui.GenreInfo.albums.album_info
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.akashmeruva.musicwiki.Genre.Genre_Activity
 import com.akashmeruva.musicwiki.R
 
-class Album_InfoGenre_Recycler_view_Adapter(private val listener: Album_info_Activity): RecyclerView.Adapter<AlbumViewHolder>() {
+class Album_InfoGenre_Recycler_view_Adapter(private val listener: AlbumInfoActivity): RecyclerView.Adapter<AlbumViewHolder>() {
 
     private val items: ArrayList<String> = ArrayList()
 

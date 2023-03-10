@@ -1,11 +1,12 @@
-package com.akashmeruva.musicwiki
+package com.akashmeruva.musicwiki.ui.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import com.akashmeruva.musicwiki.Genre.Genre_Activity
+import com.akashmeruva.musicwiki.R
+import com.akashmeruva.musicwiki.ui.Genre.Genre_Activity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {

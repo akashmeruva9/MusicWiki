@@ -1,4 +1,4 @@
-package com.akashmeruva.musicwiki.GenreInfo.albums
+package com.akashmeruva.musicwiki.ui.GenreInfo.artists.artist_info
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,20 +6,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.akashmeruva.musicwiki.models.Album
 import com.akashmeruva.musicwiki.R
 import com.bumptech.glide.Glide
 
-
-class AlbumRecyclerViewAdapter(private val listener: Albums_Fragment): RecyclerView.Adapter<AlbumViewHolder>() {
+class Artist_info_top_album_recyclerview_adapter(private val listener: Artist_info_Activity): RecyclerView.Adapter<Artist_Info_Album_Recycler_ViewHolder>() {
 
     private val items: ArrayList<Album> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Artist_Info_Album_Recycler_ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.album_item, parent, false)
-        val viewHolder = AlbumViewHolder(view)
-        view.setOnClickListener{
-            listener.onItemClicked(items[viewHolder.adapterPosition])
-        }
+        val viewHolder = Artist_Info_Album_Recycler_ViewHolder(view)
+
         return viewHolder
     }
 
@@ -27,7 +25,7 @@ class AlbumRecyclerViewAdapter(private val listener: Albums_Fragment): RecyclerV
         return items.size
     }
 
-    override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: Artist_Info_Album_Recycler_ViewHolder, position: Int) {
 
         val currentItem = items[position]
         holder.albumName.text = currentItem.name
@@ -43,9 +41,9 @@ class AlbumRecyclerViewAdapter(private val listener: Albums_Fragment): RecyclerV
     }
 }
 
-class AlbumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class Artist_Info_Album_Recycler_ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     val albumName: TextView = itemView.findViewById(R.id.album_item_name)
-    val artistName :TextView = itemView.findViewById(R.id.album_item_artist)
+    val artistName : TextView = itemView.findViewById(R.id.album_item_artist)
     val img: ImageView = itemView.findViewById(R.id.album_item_img)
 }

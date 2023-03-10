@@ -1,4 +1,4 @@
-package com.akashmeruva.musicwiki.GenreInfo.albums
+package com.akashmeruva.musicwiki.ui.GenreInfo.albums
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,9 +7,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.akashmeruva.musicwiki.Genre.MySingleton
-import com.akashmeruva.musicwiki.GenreInfo.albums.album_info.Album_info_Activity
+import com.akashmeruva.musicwiki.adapters.MySingleton
+import com.akashmeruva.musicwiki.ui.GenreInfo.albums.album_info.AlbumInfoActivity
 import com.akashmeruva.musicwiki.R
+import com.akashmeruva.musicwiki.databinding.FragmentAlbumsBinding
+import com.akashmeruva.musicwiki.models.Album
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 
@@ -17,19 +19,20 @@ class Albums_Fragment : Fragment(R.layout.fragment_albums_) {
 
     lateinit var myadapter: AlbumRecyclerViewAdapter
     var genreName :String? = null
+    private lateinit var binding :FragmentAlbumsBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding = FragmentAlbumsBinding.bind(view)
         genreName =  requireActivity().intent.getStringExtra("genre_name")
         val manager = GridLayoutManager(requireActivity() , 3)
         loadalbums()
-        val RecyclerView = requireActivity().findViewById<RecyclerView>(R.id.album_recycler_view)
-        RecyclerView.layoutManager = manager
+        binding.albumRecyclerView.layoutManager = manager
         myadapter = AlbumRecyclerViewAdapter(this)
-        RecyclerView.adapter = myadapter
+        binding.albumRecyclerView.adapter = myadapter
 
-        RecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.albumRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if(!recyclerView.canScrollVertically(1)) {
@@ -75,7 +78,7 @@ class Albums_Fragment : Fragment(R.layout.fragment_albums_) {
 
     fun onItemClicked(s: Album) {
 
-        val intent = Intent(requireActivity() , Album_info_Activity::class.java)
+        val intent = Intent(requireActivity() , AlbumInfoActivity::class.java)
         intent.putExtra("album_name" , s.name)
         intent.putExtra("artist_name" , s.artist)
         intent.putExtra("image_link" , s.image_link)

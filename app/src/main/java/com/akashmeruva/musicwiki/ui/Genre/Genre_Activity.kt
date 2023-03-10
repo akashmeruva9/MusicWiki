@@ -1,48 +1,46 @@
-package com.akashmeruva.musicwiki.Genre
+package com.akashmeruva.musicwiki.ui.Genre
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.akashmeruva.musicwiki.GenreInfo.Genre_Info_Activity
-import com.akashmeruva.musicwiki.R
+import com.akashmeruva.musicwiki.adapters.MySingleton
+import com.akashmeruva.musicwiki.databinding.ActivityGenreBinding
+import com.akashmeruva.musicwiki.ui.GenreInfo.Genre_Info_Activity
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 
 class Genre_Activity : AppCompatActivity() {
 
     lateinit var myadapter: GenreRecyclerViewAdapter
+    private lateinit var binding : ActivityGenreBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_genre)
+
+        binding = ActivityGenreBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val manager = GridLayoutManager(this , 4)
         loadgenres()
-        val RecyclerView = findViewById<RecyclerView>(R.id.genre_recycler_view)
-        RecyclerView.layoutManager = manager
+        binding.genreRecyclerView.layoutManager = manager
         myadapter = GenreRecyclerViewAdapter(this)
-        RecyclerView.adapter = myadapter
+        binding.genreRecyclerView.adapter = myadapter
 
-        RecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.genreRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if(!recyclerView.canScrollVertically(1)) {
                         loadgenres()
-
                 }
             }
         })
 
-        val btn = findViewById<LinearLayout>(R.id.close_slider_btn)
-        val sliderLayout = findViewById<LinearLayout>(R.id.slider_layout)
-
-        btn.setOnClickListener {
-            sliderLayout.visibility = View.GONE
+        binding.closeSliderBtn.setOnClickListener {
+            binding.sliderLayout.visibility = View.GONE
         }
 
     }

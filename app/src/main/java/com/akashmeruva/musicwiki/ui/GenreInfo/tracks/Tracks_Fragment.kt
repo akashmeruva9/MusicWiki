@@ -1,17 +1,15 @@
-package com.akashmeruva.musicwiki.GenreInfo.tracks
+package com.akashmeruva.musicwiki.ui.GenreInfo.tracks
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.akashmeruva.musicwiki.Genre.MySingleton
-import com.akashmeruva.musicwiki.GenreInfo.albums.album_info.Album_info_Activity
-import com.akashmeruva.musicwiki.GenreInfo.artists.Artist
-import com.akashmeruva.musicwiki.GenreInfo.artists.artist_info.Artist_info_Activity
+import com.akashmeruva.musicwiki.adapters.MySingleton
 import com.akashmeruva.musicwiki.R
+import com.akashmeruva.musicwiki.databinding.FragmentTracksBinding
+import com.akashmeruva.musicwiki.models.Track
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 
@@ -20,19 +18,21 @@ class Tracks_Fragment : Fragment(R.layout.fragment_tracks_) {
 
     lateinit var myadapter: TracksRecyclerViewAdapter
     var genreName :String? = null
+    private lateinit var binding: FragmentTracksBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding = FragmentTracksBinding.bind(view)
+
         genreName =  requireActivity().intent.getStringExtra("genre_name")
         val manager = GridLayoutManager(requireActivity() , 3)
         loadtracks()
-        val RecyclerView = requireActivity().findViewById<RecyclerView>(R.id.tracks_recycler_view)
-        RecyclerView.layoutManager = manager
+        binding.tracksRecyclerView.layoutManager = manager
         myadapter = TracksRecyclerViewAdapter(this)
-        RecyclerView.adapter = myadapter
+        binding.tracksRecyclerView.adapter = myadapter
 
-        RecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.tracksRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if(!recyclerView.canScrollVertically(1)) {

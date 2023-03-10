@@ -1,4 +1,4 @@
-package com.akashmeruva.musicwiki.GenreInfo.artists
+package com.akashmeruva.musicwiki.ui.GenreInfo.artists
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.akashmeruva.musicwiki.R
+import com.akashmeruva.musicwiki.models.Artist
 import com.bumptech.glide.Glide
 
 

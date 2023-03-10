@@ -1,6 +1,4 @@
-package com.akashmeruva.musicwiki.GenreInfo.albums
-
-import com.akashmeruva.musicwiki.GenreInfo.artists.Artist
+package com.akashmeruva.musicwiki.models
 
 class Album {
 

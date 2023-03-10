@@ -1,52 +1,41 @@
-package com.akashmeruva.musicwiki.GenreInfo.albums.album_info
+package com.akashmeruva.musicwiki.ui.GenreInfo.albums.album_info
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.akashmeruva.musicwiki.Genre.MySingleton
-import com.akashmeruva.musicwiki.R
+import com.akashmeruva.musicwiki.adapters.MySingleton
+import com.akashmeruva.musicwiki.databinding.ActivityAlbumInfoBinding
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.bumptech.glide.Glide
 
 
-class Album_info_Activity : AppCompatActivity() {
+class AlbumInfoActivity : AppCompatActivity() {
 
     lateinit var myadapter: Album_InfoGenre_Recycler_view_Adapter
+    private lateinit var binding : ActivityAlbumInfoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_album_info)
+
+        binding = ActivityAlbumInfoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val albumName = intent.getStringExtra("album_name")
         val artistName = intent.getStringExtra("artist_name")
         val imagelink = intent.getStringExtra("image_link")
 
-        val ALbumNameTv = findViewById<TextView>(R.id.album_info_item_name)
-        val ArtistNameTv = findViewById<TextView>(R.id.album_artist_info_item_artist)
-        val bcgImageView = findViewById<ImageView>(R.id.album_info_bcg_img)
-        val description = findViewById<TextView>(R.id.album_info_tv2)
-        val backBtn = findViewById<Button>(R.id.album_info_back_btn)
+        binding.albumInfoItemName.text = albumName
+        binding.albumArtistInfoItemArtist.text = artistName
+        Glide.with(this).load(imagelink).into(binding.albumInfoBcgImg)
 
-        ALbumNameTv.text = albumName
-        ArtistNameTv.text = artistName
-        Glide.with(this).load(imagelink).into(bcgImageView)
-
-
-        backBtn.setOnClickListener {
+        binding.albumInfoBackBtn.setOnClickListener {
             this.finish()
         }
 
         val manager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        val RecyclerView = findViewById<RecyclerView>(R.id.album_info_recycler_view)
-        RecyclerView.layoutManager = manager
-
-
+        binding.albumInfoRecyclerView.layoutManager = manager
 
         val url = "https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=2d27e848887a6c209a96fe02d7dc1f51&artist=$artistName&album=$albumName&format=json"
 
@@ -67,7 +56,7 @@ class Album_info_Activity : AppCompatActivity() {
 
                 val jsonObject2 = jsonObject.getJSONObject("wiki")
                 val summary = jsonObject2.getString("summary")
-                description.text = summary.substringBefore("<a")
+                binding.albumInfoTv2.text = summary.substringBefore("<a")
 
                 myadapter.update(TagArray)
             },
@@ -80,13 +69,8 @@ class Album_info_Activity : AppCompatActivity() {
         }
 
         myadapter = Album_InfoGenre_Recycler_view_Adapter(this)
-        RecyclerView.adapter = myadapter
+        binding.albumInfoRecyclerView.adapter = myadapter
 
-    }
-
-
-    fun aa(){
-       /* */
     }
 
     fun onItemClicked(s: String) {

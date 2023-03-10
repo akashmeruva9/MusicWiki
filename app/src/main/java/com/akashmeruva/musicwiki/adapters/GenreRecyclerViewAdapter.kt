@@ -1,4 +1,4 @@
-package com.akashmeruva.musicwiki.GenreInfo.artists.artist_info
+package com.akashmeruva.musicwiki.ui.Genre
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +7,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.akashmeruva.musicwiki.R
 
-class Artist_InfoGenre_Recycler_view_Adapter(private val listener: Artist_info_Activity): RecyclerView.Adapter<ArtistInfoViewHolder>() {
+class GenreRecyclerViewAdapter(private val listener: Genre_Activity): RecyclerView.Adapter<GenreViewHolder>() {
 
     private val items: ArrayList<String> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistInfoViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.genre_item, parent, false)
-        val viewHolder = ArtistInfoViewHolder(view)
+        val viewHolder = GenreViewHolder(view)
+        view.setOnClickListener{
+            listener.onItemClicked(items[viewHolder.adapterPosition])
+        }
         return viewHolder
     }
 
@@ -21,7 +24,7 @@ class Artist_InfoGenre_Recycler_view_Adapter(private val listener: Artist_info_A
         return items.size
     }
 
-    override fun onBindViewHolder(holder: ArtistInfoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GenreViewHolder, position: Int) {
 
         holder.titleView.text = items[position]
     }
@@ -34,6 +37,6 @@ class Artist_InfoGenre_Recycler_view_Adapter(private val listener: Artist_info_A
     }
 }
 
-class ArtistInfoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class GenreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val titleView: TextView = itemView.findViewById(R.id.genre_text)
 }

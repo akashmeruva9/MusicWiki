@@ -1,4 +1,4 @@
-package com.akashmeruva.musicwiki.GenreInfo.tracks
+package com.akashmeruva.musicwiki.ui.GenreInfo.artists.artist_info
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,17 +6,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.akashmeruva.musicwiki.GenreInfo.artists.Artist
+import com.akashmeruva.musicwiki.models.Track
 import com.akashmeruva.musicwiki.R
 import com.bumptech.glide.Glide
 
-class TracksRecyclerViewAdapter(private val listener: Tracks_Fragment): RecyclerView.Adapter<TrackViewHolder>() {
+class Artist_info_top_tracks_recyclerview_adapter (private val listener: Artist_info_Activity): RecyclerView.Adapter<Artist_info_toptracksViewHolder>() {
 
     private val items: ArrayList<Track> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Artist_info_toptracksViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.tracks_item, parent, false)
-        val viewHolder = TrackViewHolder(view)
+        val viewHolder = Artist_info_toptracksViewHolder(view)
 
         return viewHolder
     }
@@ -25,7 +25,7 @@ class TracksRecyclerViewAdapter(private val listener: Tracks_Fragment): Recycler
         return items.size
     }
 
-    override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: Artist_info_toptracksViewHolder, position: Int) {
 
         val currentItem = items[position]
         holder.trackName.text = currentItem.name
@@ -40,7 +40,7 @@ class TracksRecyclerViewAdapter(private val listener: Tracks_Fragment): Recycler
     }
 }
 
-class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class Artist_info_toptracksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     val trackName: TextView = itemView.findViewById(R.id.tracks_item_name)
     val img: ImageView = itemView.findViewById(R.id.tracks_item_ing)

@@ -1,4 +1,4 @@
-package com.akashmeruva.musicwiki.GenreInfo.artists
+package com.akashmeruva.musicwiki.models
 
 class Artist {
 

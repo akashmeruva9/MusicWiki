@@ -1,21 +1,15 @@
-package com.akashmeruva.musicwiki.GenreInfo.artists.artist_info
+package com.akashmeruva.musicwiki.ui.GenreInfo.artists.artist_info
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.akashmeruva.musicwiki.Genre.MySingleton
-import com.akashmeruva.musicwiki.GenreInfo.albums.Album
-import com.akashmeruva.musicwiki.GenreInfo.albums.AlbumRecyclerViewAdapter
-import com.akashmeruva.musicwiki.GenreInfo.albums.album_info.Album_InfoGenre_Recycler_view_Adapter
-import com.akashmeruva.musicwiki.GenreInfo.tracks.Track
-import com.akashmeruva.musicwiki.GenreInfo.tracks.TracksRecyclerViewAdapter
-import com.akashmeruva.musicwiki.R
+import com.akashmeruva.musicwiki.adapters.MySingleton
+import com.akashmeruva.musicwiki.models.Album
+import com.akashmeruva.musicwiki.models.Track
+import com.akashmeruva.musicwiki.databinding.ActivityArtistInfoBinding
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.bumptech.glide.Glide
@@ -25,34 +19,29 @@ class Artist_info_Activity : AppCompatActivity() {
     lateinit var genreadapter: Artist_InfoGenre_Recycler_view_Adapter
     lateinit var albumadapter: Artist_info_top_album_recyclerview_adapter
     lateinit var tracksadapter: Artist_info_top_tracks_recyclerview_adapter
-
+    private lateinit var binding:ActivityArtistInfoBinding
     var artistName : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_artist_info)
+
+        binding = ActivityArtistInfoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
          artistName = intent.getStringExtra("artist_name")
         val imagelink = intent.getStringExtra("image_link")
 
-        val artistNameTv = findViewById<TextView>(R.id.artist_info_item_name)
-        val countNumber = findViewById<TextView>(R.id.artist_player_count)
-        val followers = findViewById<TextView>(R.id.artist_followers)
-        val bcgImageView = findViewById<ImageView>(R.id.artist_info_bcg_img)
-        val description = findViewById<TextView>(R.id.artist_info_tv2)
-        val backBtn = findViewById<Button>(R.id.artist_info_back_btn)
 
-        artistNameTv.text = artistName
-        Glide.with(this).load(imagelink).into(bcgImageView)
+        binding.artistInfoItemName.text = artistName
+        Glide.with(this).load(imagelink).into(binding.artistInfoBcgImg)
 
 
-        backBtn.setOnClickListener {
+        binding.artistInfoBackBtn.setOnClickListener {
             this.finish()
         }
 
         val manager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        val RecyclerView = findViewById<RecyclerView>(R.id.artist_recycler_view)
-        RecyclerView.layoutManager = manager
+        binding.artistRecyclerView.layoutManager = manager
 
 
         val url = "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=$artistName&api_key=2d27e848887a6c209a96fe02d7dc1f51&format=json"
@@ -74,14 +63,14 @@ class Artist_info_Activity : AppCompatActivity() {
                 genreadapter.update(TagArray)
                 val bioObject = jsonObject.getJSONObject("bio")
                 val summary = bioObject.getString("summary")
-                description.text = summary.substringBefore("<a")
+                binding.artistInfoTv2.text = summary.substringBefore("<a")
 
                 val jsonobject3 = jsonObject.getJSONObject("stats")
                 val playcount = jsonobject3.getString("playcount")
                 val lizteners = jsonobject3.getString("listeners")
 
-                countNumber.text = "$playcount \n play count"
-                followers.text = "$lizteners \n followers"
+                binding.artistPlayerCount.text = "$playcount \n play count"
+                binding.artistFollowers.text = "$lizteners \n followers"
             },
             {
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
@@ -92,20 +81,19 @@ class Artist_info_Activity : AppCompatActivity() {
         }
 
         genreadapter = Artist_InfoGenre_Recycler_view_Adapter(this)
-        RecyclerView.adapter = genreadapter
+        binding.artistRecyclerView.adapter = genreadapter
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
         val Album_manager = GridLayoutManager(this , 3)
         loadalbums()
-        val AlbumsRecyclerView = this.findViewById<RecyclerView>(R.id.artist_Albums_recycler_view)
-        AlbumsRecyclerView.layoutManager = Album_manager
+        binding.artistAlbumsRecyclerView.layoutManager = Album_manager
         albumadapter = Artist_info_top_album_recyclerview_adapter(this)
-        AlbumsRecyclerView.adapter = albumadapter
+        binding.artistAlbumsRecyclerView.adapter = albumadapter
 
-        AlbumsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.artistAlbumsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if(!recyclerView.canScrollVertically(1)) {
@@ -119,12 +107,11 @@ class Artist_info_Activity : AppCompatActivity() {
 
         val TrackManager = GridLayoutManager(this , 3)
         loadtracks()
-        val TracksRecyclerView = this.findViewById<RecyclerView>(R.id.artist_Tracks_recycler_view)
-        TracksRecyclerView.layoutManager = TrackManager
+        binding.artistTracksRecyclerView.layoutManager = TrackManager
         tracksadapter = Artist_info_top_tracks_recyclerview_adapter(this)
-        TracksRecyclerView.adapter = tracksadapter
+        binding.artistTracksRecyclerView.adapter = tracksadapter
 
-        TracksRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.artistTracksRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if(!recyclerView.canScrollVertically(1)) {
@@ -134,9 +121,6 @@ class Artist_info_Activity : AppCompatActivity() {
         })
 
     }
-
-
-
 
     fun loadalbums() {
 

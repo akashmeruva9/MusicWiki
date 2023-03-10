@@ -1,4 +1,4 @@
-package com.akashmeruva.musicwiki.GenreInfo.tracks
+package com.akashmeruva.musicwiki.models
 
 class Track {
     var name : String? = null;

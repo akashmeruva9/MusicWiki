@@ -1,18 +1,18 @@
-package com.akashmeruva.musicwiki.GenreInfo
+package com.akashmeruva.musicwiki.ui.GenreInfo
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.akashmeruva.musicwiki.Genre.MySingleton
-import com.akashmeruva.musicwiki.GenreInfo.albums.Albums_Fragment
-import com.akashmeruva.musicwiki.GenreInfo.artists.Artists_Fragment
-import com.akashmeruva.musicwiki.GenreInfo.tracks.Tracks_Fragment
+import com.akashmeruva.musicwiki.adapters.MySingleton
+import com.akashmeruva.musicwiki.ui.GenreInfo.albums.Albums_Fragment
+import com.akashmeruva.musicwiki.ui.GenreInfo.artists.Artists_Fragment
+import com.akashmeruva.musicwiki.ui.GenreInfo.tracks.Tracks_Fragment
 import com.akashmeruva.musicwiki.R
+import com.akashmeruva.musicwiki.adapters.ViewPagerAdapter
+import com.akashmeruva.musicwiki.databinding.ActivityGenreInfoBinding
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.google.android.material.tabs.TabLayout
@@ -20,15 +20,17 @@ import com.google.android.material.tabs.TabLayout
 class Genre_Info_Activity : AppCompatActivity() {
     var tabLayout: TabLayout? = null
     var viewPager: ViewPager? = null
+    private lateinit var binding:ActivityGenreInfoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_genre_info)
+
+        binding = ActivityGenreInfoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val genreName = intent.getStringExtra("genre_name")
         val url = "https://ws.audioscrobbler.com/2.0/?method=tag.getinfo&tag=$genreName&api_key=2d27e848887a6c209a96fe02d7dc1f51&format=json"
-        val nameTextView = findViewById<TextView>(R.id.genre_info_tv1)
-        val descTextView = findViewById<TextView>(R.id.genre_info_tv2)
+
         val jsonObjectRequest1 = JsonObjectRequest(
             Request.Method.GET, url, null,
             { response ->
@@ -39,8 +41,8 @@ class Genre_Info_Activity : AppCompatActivity() {
                 var summary = wikijsonObject.getString("summary")
                 summary = summary.substringBefore("<a")
 
-                nameTextView.text = name
-                descTextView.text = summary
+                binding.genreInfoTv1.text = name
+                binding.genreInfoTv2.text = summary
 
             },
             {
@@ -64,8 +66,7 @@ class Genre_Info_Activity : AppCompatActivity() {
         viewPager!!.adapter = VRadapter
 
 
-        val backBtn = findViewById<ImageView>(R.id.genre_info_back_btn)
-        backBtn.setOnClickListener {
+        binding.genreInfoBackBtn.setOnClickListener {
             this.finish()
         }
 
