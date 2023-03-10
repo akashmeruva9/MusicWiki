@@ -1,4 +1,4 @@
-package com.akashmeruva.musicwiki.adapters
+package com.akashmeruva.musicwiki.adapters.Genre
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

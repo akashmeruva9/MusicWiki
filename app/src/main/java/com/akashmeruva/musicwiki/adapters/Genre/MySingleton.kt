@@ -1,4 +1,4 @@
-package com.akashmeruva.musicwiki.adapters
+package com.akashmeruva.musicwiki.adapters.Genre
 
 
 import android.content.Context

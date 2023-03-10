@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.akashmeruva.musicwiki.adapters.MySingleton
+import com.akashmeruva.musicwiki.adapters.Genre.MySingleton
 import com.akashmeruva.musicwiki.R
 import com.akashmeruva.musicwiki.databinding.FragmentTracksBinding
 import com.akashmeruva.musicwiki.models.Track

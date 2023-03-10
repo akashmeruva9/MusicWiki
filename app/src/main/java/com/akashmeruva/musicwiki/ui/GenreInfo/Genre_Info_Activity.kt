@@ -6,12 +6,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.akashmeruva.musicwiki.adapters.MySingleton
+import com.akashmeruva.musicwiki.adapters.Genre.MySingleton
 import com.akashmeruva.musicwiki.ui.GenreInfo.albums.Albums_Fragment
 import com.akashmeruva.musicwiki.ui.GenreInfo.artists.Artists_Fragment
 import com.akashmeruva.musicwiki.ui.GenreInfo.tracks.Tracks_Fragment
 import com.akashmeruva.musicwiki.R
-import com.akashmeruva.musicwiki.adapters.ViewPagerAdapter
+import com.akashmeruva.musicwiki.adapters.Genre.ViewPagerAdapter
 import com.akashmeruva.musicwiki.databinding.ActivityGenreInfoBinding
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
