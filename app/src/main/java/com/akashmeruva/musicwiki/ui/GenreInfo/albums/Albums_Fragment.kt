@@ -2,6 +2,7 @@ package com.akashmeruva.musicwiki.ui.GenreInfo.albums
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -14,6 +15,7 @@ import com.akashmeruva.musicwiki.databinding.FragmentAlbumsBinding
 import com.akashmeruva.musicwiki.models.Album
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
+import java.lang.Exception
 
 class Albums_Fragment : Fragment(R.layout.fragment_albums_) {
 
@@ -44,35 +46,43 @@ class Albums_Fragment : Fragment(R.layout.fragment_albums_) {
 
     fun loadalbums() {
 
-        val url = "https://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=$genreName&api_key=2d27e848887a6c209a96fe02d7dc1f51&format=json"
+        try {
+            val url =
+                "https://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=$genreName&api_key=2d27e848887a6c209a96fe02d7dc1f51&format=json"
 
-        val jsonObjectRequest1 = JsonObjectRequest(
-            Request.Method.GET, url, null,
-            { response ->
+            val jsonObjectRequest1 = JsonObjectRequest(
+                Request.Method.GET, url, null,
+                { response ->
 
-                val jsonObject = response.getJSONObject("albums")
-                val jsonArray = jsonObject.getJSONArray("album")
+                    val jsonObject = response.getJSONObject("albums")
+                    val jsonArray = jsonObject.getJSONArray("album")
 
-                val AlbumsArray = ArrayList<Album>()
-                for (i in 0 until jsonArray.length()) {
-                    val JsonObject1 = jsonArray.getJSONObject(i)
-                    val AlbumName = JsonObject1.getString("name")
-                    val jsonobject2 = JsonObject1.getJSONObject("artist")
-                    val ArtistName = jsonobject2.getString("name")
-                    val jsonArray3 = JsonObject1.getJSONArray("image")
-                    val jsonobject4 = jsonArray3.getJSONObject(3)
-                    val image_link = jsonobject4.getString("#text")
+                    val AlbumsArray = ArrayList<Album>()
+                    for (i in 0 until jsonArray.length()) {
+                        val JsonObject1 = jsonArray.getJSONObject(i)
+                        val AlbumName = JsonObject1.getString("name")
+                        val jsonobject2 = JsonObject1.getJSONObject("artist")
+                        val ArtistName = jsonobject2.getString("name")
+                        val jsonArray3 = JsonObject1.getJSONArray("image")
+                        val jsonobject4 = jsonArray3.getJSONObject(3)
+                        val image_link = jsonobject4.getString("#text")
 
-                    AlbumsArray.add(Album(AlbumName , ArtistName , image_link))
-                }
-                myadapter.update(AlbumsArray)
-            },
-            {
-                Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_LONG).show()
-            })
+                        AlbumsArray.add(Album(AlbumName, ArtistName, image_link))
+                    }
+                    myadapter.update(AlbumsArray)
+                },
+                {
+                    Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_LONG)
+                        .show()
+                })
 
-        this.let {
-            MySingleton.getInstance(requireContext()).addToRequestQueue(jsonObjectRequest1)
+            this.let {
+                MySingleton.getInstance(requireContext()).addToRequestQueue(jsonObjectRequest1)
+            }
+
+        }catch( e : Exception)
+        {
+            Log.d("EXC" , e.message.toString())
         }
     }
 

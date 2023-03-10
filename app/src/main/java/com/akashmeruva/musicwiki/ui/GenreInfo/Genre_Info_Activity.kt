@@ -1,6 +1,7 @@
 package com.akashmeruva.musicwiki.ui.GenreInfo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import com.akashmeruva.musicwiki.databinding.ActivityGenreInfoBinding
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.google.android.material.tabs.TabLayout
+import java.lang.Exception
 
 class Genre_Info_Activity : AppCompatActivity() {
     var tabLayout: TabLayout? = null
@@ -28,31 +30,36 @@ class Genre_Info_Activity : AppCompatActivity() {
         binding = ActivityGenreInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val genreName = intent.getStringExtra("genre_name")
-        val url = "https://ws.audioscrobbler.com/2.0/?method=tag.getinfo&tag=$genreName&api_key=2d27e848887a6c209a96fe02d7dc1f51&format=json"
+        try {
+            val genreName = intent.getStringExtra("genre_name")
+            val url =
+                "https://ws.audioscrobbler.com/2.0/?method=tag.getinfo&tag=$genreName&api_key=2d27e848887a6c209a96fe02d7dc1f51&format=json"
 
-        val jsonObjectRequest1 = JsonObjectRequest(
-            Request.Method.GET, url, null,
-            { response ->
+            val jsonObjectRequest1 = JsonObjectRequest(
+                Request.Method.GET, url, null,
+                { response ->
 
-                val jsonObject = response.getJSONObject("tag")
-                val wikijsonObject = jsonObject.getJSONObject("wiki")
-                val name = jsonObject.getString("name")
-                var summary = wikijsonObject.getString("summary")
-                summary = summary.substringBefore("<a")
+                    val jsonObject = response.getJSONObject("tag")
+                    val wikijsonObject = jsonObject.getJSONObject("wiki")
+                    val name = jsonObject.getString("name")
+                    var summary = wikijsonObject.getString("summary")
+                    summary = summary.substringBefore("<a")
 
-                binding.genreInfoTv1.text = name
-                binding.genreInfoTv2.text = summary
+                    binding.genreInfoTv1.text = name
+                    binding.genreInfoTv2.text = summary
 
-            },
-            {
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
-            })
+                },
+                {
+                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
+                })
 
-        this.let {
-            MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest1)
+            this.let {
+                MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest1)
+            }
+        }catch( e : Exception)
+        {
+            Log.d("EXC" , e.message.toString())
         }
-
         tabLayout = findViewById<View>(R.id.tabLayout) as TabLayout
         viewPager = findViewById<View>(R.id.viewpager) as ViewPager
 

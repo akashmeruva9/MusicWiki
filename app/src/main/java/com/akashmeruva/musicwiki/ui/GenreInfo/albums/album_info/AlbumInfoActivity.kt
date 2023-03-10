@@ -1,6 +1,7 @@
 package com.akashmeruva.musicwiki.ui.GenreInfo.albums.album_info
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,6 +38,7 @@ class AlbumInfoActivity : AppCompatActivity() {
         val manager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.albumInfoRecyclerView.layoutManager = manager
 
+        try{
         val url = "https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=2d27e848887a6c209a96fe02d7dc1f51&artist=$artistName&album=$albumName&format=json"
 
         val jsonObjectRequest1 = JsonObjectRequest(
@@ -66,6 +68,11 @@ class AlbumInfoActivity : AppCompatActivity() {
 
         this.let {
             MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest1)
+        }
+
+        }catch( e : Exception)
+        {
+            Log.d("EXC" , e.message.toString())
         }
 
         myadapter = Album_InfoGenre_Recycler_view_Adapter(this)
