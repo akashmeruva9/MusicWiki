@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.akashmeruva.musicwiki.adapters.Genre.MySingleton
+import com.akashmeruva.musicwiki.ui.GenreInfo.adapters.Genre.MySingleton
 import com.akashmeruva.musicwiki.databinding.ActivityGenreBinding
 import com.akashmeruva.musicwiki.ui.GenreInfo.Genre_Info_Activity
 import com.android.volley.Request
